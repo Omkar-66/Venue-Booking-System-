@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Availability Calendar</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css">
+    <style>
+        body {
+            margin: 20px;
+        }
+        #calendar {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <header class="bg-info text-white text-center py-5">
+        <h1>Check Venue Availability</h1>
+    </header>
+
+    <div class="container mt-5">
+        <div id="calendar"></div>
+    </div>
+
+    <div class="container my-4">
+        <a href="index.html" class="btn btn-secondary">Back to Home</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+   $(document).ready(function() {
+    // Load existing bookings from localStorage
+    const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+    console.log('Loaded bookings:', bookings); // Log the bookings to check
+
+    // Convert krne bookings to events for Calendar
+    const events = bookings.map(booking => ({
+        title: `${booking.venue} - ${booking.name}`,
+        start: booking.date,
+        allDay: true
+    }));
+
+    console.log('Formatted events:', events); 
+
+    // Initialize hoga calender yaha se 
+    $('#calendar').fullCalendar({
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+        },
+        editable: true,
+        events: events, // Load events bookings se
+        eventRender: function(event, element) {
+            element.tooltip({
+                title: event.title,
+                placement: 'top',
+                trigger: 'hover',
+                container: 'body'
+            });
+        }
+    });
+});
+
+    </script>
+</body>
+</html>

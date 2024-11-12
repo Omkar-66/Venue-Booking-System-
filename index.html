@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Event Venue Booking</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/style.css">
+        <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/main.min.css' rel='stylesheet' />
+        <style>
+            /* Custom style for reducing carousel image height  */
+            .custom-carousel {
+                height: 400px; 
+                object-fit: cover; 
+            }
+        </style>
+    </head>
+    
+<body>
+
+  
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Venue Booking</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="venues.html">Venues</a></li>
+                    <li class="nav-item"><a class="nav-link" href="availability-calendar.html">Calendar</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="auth.html">Sign In/Sign Up</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+  
+    <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="download (1).jpg" class="d-block w-100 custom-carousel" alt="Carousel Image 1">
+            </div>
+            <div class="carousel-item">
+                <img src="images.png" class="d-block w-100 custom-carousel" alt="Carousel Image 2">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+      
+   
+    <div class="container my-5">
+        <h1 class="text-center">Featured Venues</h1>
+        <div class="row">
+            
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img src="venue 1.jpg" class="card-img-top" alt="Venue Image 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Conference Room A</h5>
+                        <p class="card-text">An elegant space for conferences and meetings with a capacity of 50 people.</p>
+                        <a href="booking.html" class="btn btn-primary">Book Now</a>
+                    </div>
+                </div>
+            </div>
+ 
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img src="venue 2.jpg" class="card-img-top" alt="Venue Image 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Banquet Hall B</h5>
+                        <p class="card-text">Perfect for weddings and parties, with a capacity of 200 people.</p>
+                        <a href="booking.html" class="btn btn-primary">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img src="venue 3.jpg" class="card-img-top" alt="Venue Image 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Meeting Room C</h5>
+                        <p class="card-text">Ideal for small business meetings, with a capacity of 15 people.</p>
+                        <a href="booking.html" class="btn btn-primary">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <footer class="text-center py-4">
+        <p>&copy; 2024 Event Venue Booking. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

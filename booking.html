@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <header class="bg-warning text-white text-center py-5">
+        <h1>Booking Form</h1>
+    </header>
+
+    <div class="container mt-5">
+        <form id="booking-form">
+            <div class="form-group">
+                <label for="venue">Select Venue</label>
+                <select class="form-control" id="venue" required>
+                    <option value="">Select a venue</option>
+                    <option value="Banquet Room A">Banquet Room A</option>
+                    <option value="Banquet Room B">Banquet Room B</option>
+                    <option value="Banquet Room C">Banquet Room C</option>
+                    <option value="Banquet Room D">Banquet Room D</option>
+                    <option value="Banquet Room E">Banquet Room E</option>
+                    <option value="Banquet Room F">Banquet Room F</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" class="form-control" id="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" class="form-control" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" class="form-control" id="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="date">Booking Date</label>
+                <input type="date" class="form-control" id="date" required>
+            </div>
+            <button type="submit" class="btn btn-success">Submit Booking</button>
+        </form>
+    </div>
+
+    <div class="container mt-5">
+        <h2>Current Bookings</h2>
+        <ul id="booking-list" class="list-group"></ul>
+    </div>
+
+    <script>
+        // Regular form submission function for adding a new booking
+        function submitBooking(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const newBooking = {
+                venue: document.getElementById('venue').value,
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                date: document.getElementById('date').value
+            };
+
+            fetch('http://localhost:3000/bookings', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newBooking),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    alert(data.message);
+                    displayBookings();
+                }
+            })
+            .catch(error => console.error('Error submitting booking:', error));
+
+            document.getElementById('booking-form').reset();
+        }
+
+        document.getElementById('booking-form').onsubmit = submitBooking;
+
+        // Function to display bookings
+        function displayBookings() {
+            fetch('http://localhost:3000/bookings')
+                .then(response => response.json())
+                .then(data => {
+                    const bookingList = document.getElementById('booking-list');
+                    bookingList.innerHTML = '';
+
+                    data.forEach(booking => {
+                        const li = document.createElement('li');
+                        li.className = 'list-group-item';
+                        li.innerHTML = `
+                            ${booking.venue} - ${booking.name} - ${booking.date} 
+                            <button class="btn btn-warning ml-3" onclick="editBooking(${booking.booking_id}, '${booking.name}', '${booking.date}')">Edit</button>
+                            <button class="btn btn-danger ml-3" onclick="deleteBooking(${booking.booking_id})">Delete</button>
+                        `;
+                        bookingList.appendChild(li);
+                    });
+                })
+                .catch(error => console.error('Error fetching bookings:', error));
+        }
+
+        // Function to edit a booking
+        function editBooking(bookingId, currentName, currentDate) {
+            document.getElementById('name').value = currentName;
+            document.getElementById('date').value = currentDate;
+
+            const bookingForm = document.getElementById('booking-form');
+            bookingForm.onsubmit = function(event) {
+                event.preventDefault();
+
+                const updatedBooking = {
+                    venue: document.getElementById('venue').value,
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    date: document.getElementById('date').value
+                };
+
+                fetch(`http://localhost:3000/bookings/${bookingId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(updatedBooking),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message) {
+                        alert(data.message);
+                        displayBookings();
+                        bookingForm.reset();
+                        bookingForm.onsubmit = submitBooking; // Reset to regular submission
+                    }
+                })
+                .catch(error => console.error('Error updating booking:', error));
+            };
+        }
+
+        // Function to delete a booking
+        function deleteBooking(bookingId) {
+            const confirmDelete = confirm('Are you sure you want to delete this booking?');
+            if (confirmDelete) {
+                fetch(`http://localhost:3000/bookings/${bookingId}`, {
+                    method: 'DELETE',
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message) {
+                        alert(data.message);
+                        displayBookings();
+                    }
+                })
+                .catch(error => console.error('Error deleting booking:', error));
+            }
+        }
+
+        // Display bookings on page load
+        displayBookings();
+    </script>
+    
+    <div class="container my-4">
+        <a href="index.html" class="btn btn-secondary">Back to Home</a>
+    </div>
+</body>
+</html>

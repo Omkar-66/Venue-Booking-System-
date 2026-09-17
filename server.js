@@ -4,12 +4,18 @@ const bodyParser = require('body-parser');
 const { createClient } = require('@supabase/supabase-js');
 const ws = require('ws');
 
+const path = require('path');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(__dirname));
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
 
 // Initialize Supabase Client
 const SUPABASE_URL = 'https://gaaicxjupawemtgkekke.supabase.co';

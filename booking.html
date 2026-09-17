@@ -3,170 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booking Form</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Book a Venue - VenueBooking</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Custom Glassmorphism CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Razorpay Checkout SDK -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <body>
-    <header class="bg-warning text-white text-center py-5">
-        <h1>Booking Form</h1>
+
+    <!-- Glass Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <span class="brand-icon"><i class="bi bi-building-fill-gear"></i></span>
+                <span class="brand-font">Venue<span class="text-gradient">Booking</span></span>
+            </a>
+            <button class="navbar-toggler text-white border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="bi bi-list fs-2"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center gap-2">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="venues.html">Explore Venues</a></li>
+                    <li class="nav-item"><a class="nav-link" href="availability-calendar.html">Availability</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="auth.html">Sign In</a></li>
+                    <li class="nav-item ms-lg-2">
+                        <a href="booking.html" class="btn btn-book-nav">Book Venue</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="container my-4 text-center">
+        <span class="badge badge-primary-glass mb-2 px-3 py-1"><i class="bi bi-shield-check"></i> 100% Secure Payment Checkout</span>
+        <h1 class="text-white">Reserve Your <span class="text-gradient">Venue Space</span></h1>
+        <p class="text-muted">Fill out the details below to complete your payment and instant booking reservation.</p>
     </header>
 
-    <div class="container mt-5">
-        <form id="booking-form">
-            <div class="form-group">
-                <label for="venue">Select Venue</label>
-                <select class="form-control" id="venue" required>
-                    <option value="">Select a venue</option>
-                    <option value="Banquet Room A">Banquet Room A</option>
-                    <option value="Banquet Room B">Banquet Room B</option>
-                    <option value="Banquet Room C">Banquet Room C</option>
-                    <option value="Banquet Room D">Banquet Room D</option>
-                    <option value="Banquet Room E">Banquet Room E</option>
-                    <option value="Banquet Room F">Banquet Room F</option>
-                </select>
+    <div class="container mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <!-- Booking Form Card -->
+                <div class="glass-panel p-4 p-md-5 mb-5">
+                    <form id="booking-form">
+                        <div class="row g-3">
+                            <div class="col-md-12">
+                                <label for="venue" class="form-label text-muted small fw-bold">Select Venue</label>
+                                <select class="form-select form-select-glass" id="venue" required>
+                                    <option value="">-- Select a Venue --</option>
+                                    <option value="Grand Imperial Ballroom">Grand Imperial Ballroom (150 Guests - ₹50,000/day)</option>
+                                    <option value="The Zenith Executive Hub">The Zenith Executive Hub (50 Guests - ₹10,000/day)</option>
+                                    <option value="Majestic Crystal Hall">Majestic Crystal Hall (200 Guests - ₹55,000/day)</option>
+                                    <option value="The Silk Route Pavilion">The Silk Route Pavilion (150 Guests - ₹30,000/day)</option>
+                                    <option value="Vanguard Tech Center">Vanguard Tech Center (200 Guests - ₹60,000/day)</option>
+                                    <option value="Aura Brainstorm Studio">Aura Brainstorm Studio (50 Guests - ₹7,000/day)</option>
+                                    <option value="Whispering Pines Botanical Lawn">Whispering Pines Botanical Lawn (300 Guests - ₹80,000/day)</option>
+                                    <option value="Royal Palace Ballroom">Royal Palace Ballroom (450 Guests - ₹95,000/day)</option>
+                                    <option value="Nexus Tech Auditorium">Nexus Tech Auditorium (400 Guests - ₹85,000/day)</option>
+                                    <option value="Sunset Horizon Rooftop">Sunset Horizon Rooftop (180 Guests - ₹48,000/day)</option>
+                                    <option value="Emerald Grand Celebration Hall">Emerald Grand Celebration Hall (280 Guests - ₹65,000/day)</option>
+                                    <option value="Horizon Executive Suite">Horizon Executive Suite (120 Guests - ₹40,000/day)</option>
+                                    <option value="Spark Workshop Studio">Spark Workshop Studio (40 Guests - ₹15,000/day)</option>
+                                    <option value="Palm Grove Luxury Resort Lawn">Palm Grove Luxury Resort Lawn (500 Guests - ₹1,20,000/day)</option>
+                                    <option value="Neon Velvet Party Lounge">Neon Velvet Party Lounge (80 Guests - ₹25,000/day)</option>
+                                    <option value="Pinnacle Executive Boardroom">Pinnacle Executive Boardroom (25 Guests - ₹12,000/day)</option>
+                                    <option value="Riverside Eco Pavilion">Riverside Eco Pavilion (220 Guests - ₹52,000/day)</option>
+                                    <option value="Vibe Innovation Pod">Vibe Innovation Pod (15 Guests - ₹4,500/day)</option>
+                                    <option value="Starlight Open Courtyard">Starlight Open Courtyard (160 Guests - ₹38,000/day)</option>
+                                    <option value="Heritage Manor Estate">Heritage Manor Estate (250 Guests - ₹70,000/day)</option>
+                                    <option value="Synergy Meeting Lounge">Synergy Meeting Lounge (35 Guests - ₹8,500/day)</option>
+                                    <option value="Crystal Symphony Banquet">Crystal Symphony Banquet (350 Guests - ₹75,000/day)</option>
+                                    <option value="Solaris Infinity Skydeck">Solaris Infinity Skydeck (110 Guests - ₹42,000/day)</option>
+                                    <option value="Monarch Grand Convention Center">Monarch Grand Convention Center (600 Guests - ₹1,35,000/day)</option>
+                                    <option value="The Velvet Underground Lounge">The Velvet Underground Lounge (75 Guests - ₹22,000/day)</option>
+                                    <option value="Oasis Palms Waterside Gazebo">Oasis Palms Waterside Gazebo (90 Guests - ₹32,000/day)</option>
+                                    <option value="Celestial Stargazer Glass Dome">Celestial Stargazer Glass Dome (140 Guests - ₹62,000/day)</option>
+                                    <option value="The Artisan Industrial Loft">The Artisan Industrial Loft (175 Guests - ₹36,000/day)</option>
+                                    <option value="Azure Bay Waterfront Deck">Azure Bay Waterfront Deck (320 Guests - ₹88,000/day)</option>
+                                    <option value="Imperium Marble Amphitheatre">Imperium Marble Amphitheatre (550 Guests - ₹1,10,000/day)</option>
+                                    <option value="Zen Sanctuary Bamboo Pavilion">Zen Sanctuary Bamboo Pavilion (60 Guests - ₹18,000/day)</option>
+                                    <option value="The Grand Vault Speakeasy">The Grand Vault Speakeasy (45 Guests - ₹28,000/day)</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="name" class="form-label text-muted small fw-bold">Full Name</label>
+                                <input type="text" class="form-control form-control-glass" id="name" placeholder="John Doe" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="email" class="form-label text-muted small fw-bold">Email Address</label>
+                                <input type="email" class="form-control form-control-glass" id="email" placeholder="john@example.com" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="phone" class="form-label text-muted small fw-bold">Phone Number</label>
+                                <input type="tel" class="form-control form-control-glass" id="phone" placeholder="+91 98765 43210" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="date" class="form-label text-muted small fw-bold">Booking Date</label>
+                                <input type="date" class="form-control form-control-glass" id="date" required>
+                            </div>
+
+                            <div class="col-12 mt-4 text-center">
+                                <button type="submit" class="btn btn-gradient btn-lg w-100 py-3 fw-bold">
+                                    <i class="bi bi-credit-card-2-back-fill me-2"></i>Proceed to Secure Payment (Razorpay / UPI)
+                                </button>
+                                <div class="mt-2 text-muted small"><i class="bi bi-lock-fill me-1 text-success"></i> 256-bit SSL Encrypted • Instant Receipt Confirmation</div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="name">Full Name</label>
-                <input type="text" class="form-control" id="name" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" class="form-control" id="email" required>
-            </div>
-            <div class="form-group">
-                <label for="phone">Phone Number</label>
-                <input type="tel" class="form-control" id="phone" required>
-            </div>
-            <div class="form-group">
-                <label for="date">Booking Date</label>
-                <input type="date" class="form-control" id="date" required>
-            </div>
-            <button type="submit" class="btn btn-success">Submit Booking</button>
-        </form>
+        </div>
     </div>
 
-    <div class="container mt-5">
-        <h2>Current Bookings</h2>
-        <ul id="booking-list" class="list-group"></ul>
-    </div>
+    <!-- Footer -->
+    <footer class="footer-glass text-center">
+        <div class="container">
+            <p class="mb-0">&copy; 2026 VenueBooking. Razorpay & Supabase Integration.</p>
+        </div>
+    </footer>
 
-    <script>
-        // Regular form submission function for adding a new booking
-        function submitBooking(event) {
-            event.preventDefault(); // Prevent default form submission
-
-            const newBooking = {
-                venue: document.getElementById('venue').value,
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                date: document.getElementById('date').value
-            };
-
-            fetch('http://localhost:3000/bookings', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newBooking),
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.message) {
-                    alert(data.message);
-                    displayBookings();
-                }
-            })
-            .catch(error => console.error('Error submitting booking:', error));
-
-            document.getElementById('booking-form').reset();
-        }
-
-        document.getElementById('booking-form').onsubmit = submitBooking;
-
-        // Function to display bookings
-        function displayBookings() {
-            fetch('http://localhost:3000/bookings')
-                .then(response => response.json())
-                .then(data => {
-                    const bookingList = document.getElementById('booking-list');
-                    bookingList.innerHTML = '';
-
-                    data.forEach(booking => {
-                        const li = document.createElement('li');
-                        li.className = 'list-group-item';
-                        li.innerHTML = `
-                            ${booking.venue} - ${booking.name} - ${booking.date} 
-                            <button class="btn btn-warning ml-3" onclick="editBooking(${booking.booking_id}, '${booking.name}', '${booking.date}')">Edit</button>
-                            <button class="btn btn-danger ml-3" onclick="deleteBooking(${booking.booking_id})">Delete</button>
-                        `;
-                        bookingList.appendChild(li);
-                    });
-                })
-                .catch(error => console.error('Error fetching bookings:', error));
-        }
-
-        // Function to edit a booking
-        function editBooking(bookingId, currentName, currentDate) {
-            document.getElementById('name').value = currentName;
-            document.getElementById('date').value = currentDate;
-
-            const bookingForm = document.getElementById('booking-form');
-            bookingForm.onsubmit = function(event) {
-                event.preventDefault();
-
-                const updatedBooking = {
-                    venue: document.getElementById('venue').value,
-                    name: document.getElementById('name').value,
-                    email: document.getElementById('email').value,
-                    phone: document.getElementById('phone').value,
-                    date: document.getElementById('date').value
-                };
-
-                fetch(`http://localhost:3000/bookings/${bookingId}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(updatedBooking),
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.message) {
-                        alert(data.message);
-                        displayBookings();
-                        bookingForm.reset();
-                        bookingForm.onsubmit = submitBooking; // Reset to regular submission
-                    }
-                })
-                .catch(error => console.error('Error updating booking:', error));
-            };
-        }
-
-        // Function to delete a booking
-        function deleteBooking(bookingId) {
-            const confirmDelete = confirm('Are you sure you want to delete this booking?');
-            if (confirmDelete) {
-                fetch(`http://localhost:3000/bookings/${bookingId}`, {
-                    method: 'DELETE',
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.message) {
-                        alert(data.message);
-                        displayBookings();
-                    }
-                })
-                .catch(error => console.error('Error deleting booking:', error));
-            }
-        }
-
-        // Display bookings on page load
-        displayBookings();
-    </script>
-    
-    <div class="container my-4">
-        <a href="index.html" class="btn btn-secondary">Back to Home</a>
-    </div>
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Application Logic & AI Chatbot -->
+    <script src="script.js"></script>
 </body>
 </html>

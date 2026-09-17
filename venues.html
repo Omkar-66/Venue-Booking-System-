@@ -3,136 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Venue Listings</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        /* Additional styles  venue cards ke liye */
-        .card {
-            transition: transform 0.2s;
-        }
-        .card:hover {
-            transform: scale(1.05);
-        }
-    </style>
+    <title>Venue Listings & Smart Search - VenueBooking</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Custom Glassmorphism CSS -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  
-    <header class="bg-secondary text-white text-center py-5">
-        <h1>Venue Listings</h1>
+
+    <!-- Glass Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <span class="brand-icon"><i class="bi bi-building-fill-gear"></i></span>
+                <span class="brand-font">Venue<span class="text-gradient">Booking</span></span>
+            </a>
+            <button class="navbar-toggler text-white border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="bi bi-list fs-2"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center gap-2">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="venues.html">Explore Venues</a></li>
+                    <li class="nav-item"><a class="nav-link" href="availability-calendar.html">Availability</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="auth.html">Sign In</a></li>
+                    <li class="nav-item ms-lg-2">
+                        <a href="booking.html" class="btn btn-book-nav">Book Venue</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Title -->
+    <header class="container my-4 text-center">
+        <span class="badge badge-primary-glass mb-2 px-3 py-1"><i class="bi bi-funnel-fill"></i> Smart Filters Enabled</span>
+        <h1 class="text-white">Explore All <span class="text-gradient">Venues</span></h1>
+        <p class="text-muted">Filter by capacity, budget, event category, or specific amenities.</p>
     </header>
 
-    <!-- Venue Listings Section -->
-    <div class="container mt-5">
+    <!-- Smart Filter Controls & Venue Grid Container -->
+    <div class="container mb-5">
         <div class="row">
-           
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="venue 1.jpg" class="card-img-top" alt="Banquet Room A">
-                    <div class="card-body">
-                        <h5 class="card-title">Banquet Room A</h5>
-                        <p class="card-text">Capacity: 150 | Price: Rs 500/day</p>
-                        <p class="card-text">An elegant space perfect for weddings and receptions, featuring modern decor and lighting.</p>
-                        <a href="booking.html?venue=Banquet%20Room%20A" class="btn btn-success">Book Now</a>
-                        <a href="availability-calendar.html" class="btn btn-primary">Check Availability</a>
+            <!-- Filter Sidebar -->
+            <div class="col-lg-3 mb-4">
+                <div class="glass-panel filter-box sticky-top" style="top: 100px;">
+                    <div class="filter-title">
+                        <span><i class="bi bi-sliders me-2 text-info"></i>Smart Filters</span>
+                        <span id="results-count" class="badge badge-primary-glass">0 venues</span>
+                    </div>
+
+                    <!-- Search Input -->
+                    <div class="mb-3">
+                        <label class="form-label text-muted small fw-bold">Search Keywords</label>
+                        <input type="text" id="filter-search" class="form-control form-control-glass" placeholder="e.g. Banquet, Garden, AC...">
+                    </div>
+
+                    <!-- Event Category -->
+                    <div class="mb-3">
+                        <label class="form-label text-muted small fw-bold">Event Category</label>
+                        <select id="filter-category" class="form-select form-select-glass">
+                            <option value="all">All Categories</option>
+                            <option value="banquet">Banquet & Weddings</option>
+                            <option value="conference">Conference & Seminars</option>
+                            <option value="meeting">Meetings & Workshops</option>
+                            <option value="outdoor">Outdoor & Open Lawn</option>
+                        </select>
+                    </div>
+
+                    <!-- Guest Capacity Slider -->
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between text-muted small mb-1 fw-bold">
+                            <span>Max Guests</span>
+                            <span id="filter-capacity-val" class="text-info">500+ guests</span>
+                        </div>
+                        <input type="range" id="filter-capacity" class="form-range" min="20" max="500" step="10" value="500">
+                    </div>
+
+                    <!-- Max Price Slider -->
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between text-muted small mb-1 fw-bold">
+                            <span>Max Budget</span>
+                            <span id="filter-price-val" class="text-info">₹1,00,000</span>
+                        </div>
+                        <input type="range" id="filter-price" class="form-range" min="5000" max="100000" step="5000" value="100000">
+                    </div>
+
+                    <!-- Amenities Checkboxes -->
+                    <div class="mb-2">
+                        <label class="form-label text-muted small fw-bold mb-2">Amenities</label>
+                        <div class="form-check mb-1">
+                            <input class="form-check-input filter-amenity" type="checkbox" value="wifi" id="amenity-wifi">
+                            <label class="form-check-label text-secondary small" for="amenity-wifi"><i class="bi bi-wifi me-1"></i> High-Speed Wi-Fi</label>
+                        </div>
+                        <div class="form-check mb-1">
+                            <input class="form-check-input filter-amenity" type="checkbox" value="av" id="amenity-av">
+                            <label class="form-check-label text-secondary small" for="amenity-av"><i class="bi bi-display me-1"></i> AV / Projector</label>
+                        </div>
+                        <div class="form-check mb-1">
+                            <input class="form-check-input filter-amenity" type="checkbox" value="catering" id="amenity-catering">
+                            <label class="form-check-label text-secondary small" for="amenity-catering"><i class="bi bi-egg-fried me-1"></i> Catering Options</label>
+                        </div>
+                        <div class="form-check mb-1">
+                            <input class="form-check-input filter-amenity" type="checkbox" value="ac" id="amenity-ac">
+                            <label class="form-check-label text-secondary small" for="amenity-ac"><i class="bi bi-snow me-1"></i> Air Conditioned</label>
+                        </div>
+                        <div class="form-check mb-1">
+                            <input class="form-check-input filter-amenity" type="checkbox" value="outdoor" id="amenity-outdoor">
+                            <label class="form-check-label text-secondary small" for="amenity-outdoor"><i class="bi bi-tree me-1"></i> Outdoor Lawn</label>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="venue 2.jpg" class="card-img-top" alt="Banquet Room B">
-                    <div class="card-body">
-                        <h5 class="card-title">Banquet Room B</h5>
-                        <p class="card-text">Capacity: 50 | Price: Rs 10000/day</p>
-                        <p class="card-text">An elegant space for conferences and meetings with modern amenities and catering options available.</p>
-                        <a href="booking.html?venue=Banquet%20Room%20B" class="btn btn-success">Book Now</a>
-                        <a href="availability-calendar.html" class="btn btn-primary">Check Availability</a>
-                    </div>
-                </div>
-            </div>
-
-        
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="venue 3.jpg" class="card-img-top" alt="Banquet Room C">
-                    <div class="card-body">
-                        <h5 class="card-title">Banquet Room C</h5>
-                        <p class="card-text">Capacity: 200 | Price: Rs 50000/day</p>
-                        <p class="card-text">Perfect for weddings and parties, featuring a grand entrance and a spacious dance floor.</p>
-                        <a href="booking.html?venue=Banquet%20Room%20C" class="btn btn-success">Book Now</a>
-                        <a href="availability-calendar.html" class="btn btn-primary">Check Availability</a>
-                    </div>
-                </div>
-            </div>
-
-        
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="venue 5.jpg" class="card-img-top" alt="Banquet Room D">
-                    <div class="card-body">
-                        <h5 class="card-title">Banquet Room D</h5>
-                        <p class="card-text">Capacity: 150 | Price: Rs 30000/day</p>
-                        <p class="card-text">Ideal for small to medium gatherings, equipped with audio-visual facilities and catering services.</p>
-                        <a href="booking.html?venue=Banquet%20Room%20D" class="btn btn-success">Book Now</a>
-                        <a href="availability-calendar.html" class="btn btn-primary">Check Availability</a>
-                    </div>
-                </div>
-            </div>
-
-    
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="venue 3.jpg" class="card-img-top" alt="Conference Hall A">
-                    <div class="card-body">
-                        <h5 class="card-title">Conference Hall A</h5>
-                        <p class="card-text">Capacity: 200 | Price: Rs 60000/day</p>
-                        <p class="card-text">A state-of-the-art conference hall equipped with projectors and seating for large groups.</p>
-                        <a href="booking.html?venue=Conference%20Hall%20A" class="btn btn-success">Book Now</a>
-                        <a href="\availability-calendar.html" class="btn btn-primary">Check Availability</a>
-                    </div>
-                </div>
-            </div>
-
-        
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="venue1.jpg" class="card-img-top" alt="Meeting Room B">
-                    <div class="card-body">
-                        <h5 class="card-title">Meeting Room B</h5>
-                        <p class="card-text">Capacity: 50 | Price: Rs 7000/day</p>
-                        <p class="card-text">A cozy meeting room ideal for team discussions and brainstorming sessions.</p>
-                        <a href="booking.html?venue=Meeting%20Room%20B" class="btn btn-success">Book Now</a>
-                        <a href="availability-calendar.html" class="btn btn-primary">Check Availability</a>
-                    </div>
-                </div>
-            </div>
-
-          
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="venue 6.jpg" class="card-img-top" alt="Garden Venue">
-                    <div class="card-body">
-                        <h5 class="card-title">Garden Venue</h5>
-                        <p class="card-text">Capacity: 300 | Price: Rs 80000/day</p>
-                        <p class="card-text">A beautiful outdoor space surrounded by nature, perfect for weddings and large events.</p>
-                        <a href="booking.html?venue=Garden%20Venue" class="btn btn-success">Book Now</a>
-                        <a href="availability-calendar.html" class="btn btn-primary">Check Availability</a>
-                    </div>
+            <!-- Dynamic Venues Cards Container -->
+            <div class="col-lg-9">
+                <div class="row" id="venues-grid">
+                    <!-- Dynamic rendering by script.js -->
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- home page jane ke liye  -->
-    <div class="container my-4 text-center">
-        <a href="index.html" class="btn btn-secondary">Back to Home</a>
-    </div>
+    <!-- Footer -->
+    <footer class="footer-glass text-center">
+        <div class="container">
+            <p class="mb-0">&copy; 2026 VenueBooking. Smart Venue Management.</p>
+        </div>
+    </footer>
 
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Application Logic & AI Chatbot -->
     <script src="script.js"></script>
 </body>
 </html>
-
-
-
-

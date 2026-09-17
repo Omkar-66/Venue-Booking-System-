@@ -1,8 +1,11 @@
 {
-  "name": "new-folder-(3)",
+  "name": "venue-booking-system",
   "version": "1.0.0",
-  "main": "script.js",
+  "main": "server.js",
   "scripts": {
+    "start": "fnm exec --using 22 node server.js || node server.js",
+    "dev": "fnm exec --using 22 node server.js || node server.js",
+    "build": "echo \"Vanilla HTML/CSS/JS web project ready - no build step required\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -10,9 +13,11 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@supabase/supabase-js": "^2.116.0",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
     "express": "^4.21.1",
-    "mysql2": "^3.11.4"
+    "mysql2": "^3.11.4",
+    "ws": "^8.21.3"
   }
 }

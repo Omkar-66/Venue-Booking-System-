@@ -259,3 +259,5 @@ const server = app.listen(PORT, () => {
         console.error(err);
     }
 });
+
+module.exports = app;
